@@ -1,0 +1,35 @@
+{
+  "name": "@fractalai/hedera-native-verifier",
+  "version": "0.1.0-beta.1",
+  "type": "module",
+  "description": "Restricted, read-only native Hedera transaction verification for x402 authority integration",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./settlement-observer": "./src/settlement-observer.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "demo": "node examples/offline.mjs"
+  },
+  "dependencies": {
+    "@hashgraph/proto": "2.25.0",
+    "@noble/curves": "2.2.0"
+  },
+  "license": "MIT",
+  "author": "FractalAI",
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
+  "files": [
+    "src",
+    "examples",
+    "test",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ]
+}
