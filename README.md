@@ -17,6 +17,8 @@ npm pack --ignore-scripts
 
 The demo uses public development keys and protobuf fixtures: genuine native signatures, no network, no funds. Never fund those keys. A consumer can install the generated `fractalai-hedera-native-verifier-0.1.0-beta.1.tgz` locally with `npm install /path/to/file.tgz --ignore-scripts`.
 
+Local validation: 53 passing tests, including 1,280 single-bit changes to one signed fixture, 160 truncations, 256 suffixes, 500 seeded malformed inputs and 100 concurrent receipt observations. These bounded cases are not an exhaustive audit. The separate repository integration harness additionally exercises real ML-DSA authority with native Ed25519; that authority module is not bundled here.
+
 ## Native SDK
 
 ```js
@@ -61,6 +63,8 @@ const receipt = await observer.observe({
 ```
 
 Supply the **final submitted** SHA384 hash, not the pre-sponsor hash or body hash. `CONFIRMED` means the configured Mirror index returned one matching SUCCESS receipt, not that this package independently validated consensus or reconstructed net transfers. Transfer verification remains UNPROVEN and `releaseReservation` stays false. Timeout, missing hash, absence, duplicate records and ambiguity remain UNKNOWN. Do not turn them into refunds, new payments or released budget automatically.
+
+For a read-only live query, save the expectation object above as JSON (public metadata only) and run `node examples/observe.mjs testnet expected-public-transaction.json`. No account key is needed. A successful lookup is not evidence that this SDK submitted or economically verified that payment.
 
 Still required before production sponsorship: live account-key lookup and recipient-signature requirements, balance/token-association/custom-fee checks, replay protection, durable concurrency/recovery, official facilitator integration, controlled network transaction evidence, independent security review and monitoring.
 
